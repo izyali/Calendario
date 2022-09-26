@@ -1,0 +1,95 @@
+#include <iostream>
+#include <string.h> 
+
+
+class Calendario { 
+private: int day, month, year; 
+public: Calendario(char date[10]) {   // CONSTRUCTOR 
+	char* respaldo; 
+	respaldo = strtok(date, "/");
+	year = std::stoi(respaldo);
+	respaldo = strtok(NULL, "/");
+	month = std::stoi(respaldo);
+	respaldo = strtok(NULL, "/");
+	day = std::stoi(respaldo);
+
+} 
+	  void validarFecha() {
+		  if (month < 1) {
+			  std::cout << "Mes invalido, no existe un mes menor a 1 " << std::endl;
+		  }
+			else if (month > 12) {
+			  std::cout << "Mes invalido, no existe un mes mayor a 12 " << std::endl;
+			} 
+			else {
+			  if (year < 1) {
+				  std::cout << "year invalido, no existe un year menor a 1  " << std::endl;
+
+		  }
+			  else if (year > 2050) {
+				  std::cout << "year invalido, el year maximo es 2050 " << std::endl;
+
+
+			  }
+			  else {
+				  if (day < 1) {
+					  std::cout << "Dia ivalido" << std::endl;
+				  }
+				  else if (month == 2) {
+					  if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {    //Condicion para year bisiesto 
+
+						  if (day > 29)
+							  std::cout << "Day invalido en el mes 02" << std::endl;
+					  }
+					  else {
+						  if (day > 28)
+							  std::cout << "Dia invalido, en el mes 02" << std::endl;
+					  }
+				  }
+				  else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 9 || month == 12) {
+					  if (day > 31)
+						  std::cout << "Dia invalido, el limite es 31" << std::endl;
+					  
+				  }
+				  else {
+					  if(day > 30) 
+						  std::cout << "Dia invalido, el limite es 30" << std::endl;
+				  }
+			  }
+			  
+
+		  }
+	  }
+};
+int main() {
+
+	
+
+	char Escape;
+	do {
+
+
+		char fecha[10];
+		std::cout << "Digite la fecha" << std::endl;
+		std::cin >> fecha;
+
+		Calendario* calendario = new Calendario(fecha);
+		calendario->validarFecha();
+
+
+		std::cout << "Introduzca z para salir del programa" << std::endl; 
+
+		std::cin >> Escape; 
+
+
+		system("cls"); 
+
+	} while (Escape != 'z');  
+
+
+
+
+
+	return 0;
+}
+
